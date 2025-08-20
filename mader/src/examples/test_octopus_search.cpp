@@ -246,20 +246,20 @@ int main(int argc, char** argv)
   int num_of_obs_up = (num_of_obs - 1) / 2.0;
 
   std::vector<visualization_msgs::MarkerArray> ma_vector;
- ConvexHullsOfCurves hulls_curves;
+//  ConvexHullsOfCurves hulls_curves;
 
-  double bbox_x = 0.4;
-  double bbox_y = 0.4;
-  double bbox_z = 0.4;
+//   double bbox_x = 0.4;
+//   double bbox_y = 0.4;
+//   double bbox_z = 0.4;
 
-  double dc = 0.002;  // Simply used for visualization
+//   double dc = 0.002;  // Simply used for visualization
 
-  int num_of_obs = 1;  // odd number
-  double separation = 0.4;
+//   int num_of_obs = 1;  // odd number
+//   double separation = 0.4;
 
-  int num_of_obs_up = (num_of_obs - 1) / 2.0;
+//   int num_of_obs_up = (num_of_obs - 1) / 2.0;
 
-  std::vector<visualization_msgs::MarkerArray> ma_vector;
+//   std::vector<visualization_msgs::MarkerArray> ma_vector;
 
   // ConvexHullsOfCurve hulls_curve = createStaticObstacle(0.0, 0.0, bbox_z / 2.0, num_pol, bbox_x, bbox_y, bbox_z);
   ConvexHullsOfCurve hulls_curve =
@@ -300,43 +300,43 @@ int main(int argc, char** argv)
     jps_poly_pubs[i].publish(poly_msg);
   }
   // ConvexHullsOfCurve hulls_curve = createStaticObstacle(0.0, 0.0, bbox_z / 2.0, num_pol, bbox_x, bbox_y, bbox_z);
-  ConvexHullsOfCurve hulls_curve =
-      createDynamicObstacle(ma_vector, 0.0, 0.0, bbox_z / 2.0, num_pol, bbox_x, bbox_y, bbox_z, t_min, t_max);
-  hulls_curves.push_back(hulls_curve);  // only one obstacle
+  // ConvexHullsOfCurve hulls_curve =
+  //     createDynamicObstacle(ma_vector, 0.0, 0.0, bbox_z / 2.0, num_pol, bbox_x, bbox_y, bbox_z, t_min, t_max);
+  // hulls_curves.push_back(hulls_curve);  // only one obstacle
 
-  for (int i = 1; i <= num_of_obs_up; i++)
-  {
-    ConvexHullsOfCurve hulls_curve =
-        createStaticObstacle(0.0, i * (bbox_y + separation), 0.0, num_pol, bbox_x, bbox_y, bbox_z);
-    hulls_curves.push_back(hulls_curve);  // only one obstacle
+  // for (int i = 1; i <= num_of_obs_up; i++)
+  // {
+  //   ConvexHullsOfCurve hulls_curve =
+  //       createStaticObstacle(0.0, i * (bbox_y + separation), 0.0, num_pol, bbox_x, bbox_y, bbox_z);
+  //   hulls_curves.push_back(hulls_curve);  // only one obstacle
 
-    hulls_curve = createStaticObstacle(0.0, -i * (bbox_y + separation), 0.0, num_pol, bbox_x, bbox_y, bbox_z);
-    hulls_curves.push_back(hulls_curve);  // only one obstacle
-  }
+  //   hulls_curve = createStaticObstacle(0.0, -i * (bbox_y + separation), 0.0, num_pol, bbox_x, bbox_y, bbox_z);
+  //   hulls_curves.push_back(hulls_curve);  // only one obstacle
+  // }
 
-  for (int i = 0; i < ma_vector.size(); i++)
-  {
-    traj_obstacle_colored_pubs[i].publish(ma_vector[i]);
-  }
+  // for (int i = 0; i < ma_vector.size(); i++)
+  // {
+  //   traj_obstacle_colored_pubs[i].publish(ma_vector[i]);
+  // }
 
-  std::cout << "hulls_curves.size()= " << hulls_curves.size() << std::endl;
+  // std::cout << "hulls_curves.size()= " << hulls_curves.size() << std::endl;
 
-  mt::ConvexHullsOfCurves_Std hulls_std = cu::vectorGCALPol2vectorStdEigen(hulls_curves);
-  // vec_E<Polyhedron<3>> jps_poly = cu::vectorGCALPol2vectorJPSPol(hulls_curves);
+  // mt::ConvexHullsOfCurves_Std hulls_std = cu::vectorGCALPol2vectorStdEigen(hulls_curves);
+  // // vec_E<Polyhedron<3>> jps_poly = cu::vectorGCALPol2vectorJPSPol(hulls_curves);
 
-  for (int i = 0; i < num_pol; i++)
-  {
-    ConvexHullsOfCurve tmp2;
-    ConvexHullsOfCurves tmp;
+  // for (int i = 0; i < num_pol; i++)
+  // {
+  //   ConvexHullsOfCurve tmp2;
+  //   ConvexHullsOfCurves tmp;
 
-    tmp2.push_back(hulls_curve[i]);
-    tmp.push_back(tmp2);
+  //   tmp2.push_back(hulls_curve[i]);
+  //   tmp.push_back(tmp2);
 
-    // convert the obstacles polyhedron arrays
-    decomp_ros_msgs::PolyhedronArray poly_msg = DecompROS::polyhedron_array_to_ros(cu::vectorGCALPol2vectorJPSPol(tmp));
-    poly_msg.header.frame_id = "world";
-    jps_poly_pubs[i].publish(poly_msg);
-  }
+  //   // convert the obstacles polyhedron arrays
+  //   decomp_ros_msgs::PolyhedronArray poly_msg = DecompROS::polyhedron_array_to_ros(cu::vectorGCALPol2vectorJPSPol(tmp));
+  //   poly_msg.header.frame_id = "world";
+  //   jps_poly_pubs[i].publish(poly_msg);
+  // }
 
   // hull.push_back(Eigen::Vector3d(-1.0, -1.0, -700.0));
   // hull.push_back(Eigen::Vector3d(-1.0, -1.0, 700.0));
